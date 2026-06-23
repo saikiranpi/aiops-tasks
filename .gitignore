@@ -1,0 +1,22 @@
+# Ignore everything by default
+/*
+
+# Except these files and folders
+!/.gitignore
+!/README.md
+!/01-gitlab-ai-code-reviewer/
+
+# Inside whitelisted folders, ignore build and sensitive files
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.backup
+**/.terraform.lock.hcl
+**/*.tfvars
+**/*.tfvars.json
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.venv/
+**/venv/
+**/.DS_Store
