@@ -5,6 +5,7 @@
 !/.gitignore
 !/README.md
 !/01-gitlab-ai-code-reviewer/
+!/02-eks-aiops-log-anomaly/
 
 # Inside whitelisted folders, ignore build and sensitive files
 **/.terraform/
