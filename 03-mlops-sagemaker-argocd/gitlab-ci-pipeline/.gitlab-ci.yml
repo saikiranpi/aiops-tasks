@@ -1,0 +1,50 @@
+stages:
+  - train
+  - build
+  - update-manifests
+
+variables:
+  AWS_REGION: "ap-south-1"
+  ECR_REPO: "123456789.dkr.ecr.ap-south-1.amazonaws.com/mlops-fraud-model"
+
+train_job:
+  stage: train
+  image: python:3.11
+  script:
+    - pip install boto3
+    # A Python script that triggers SageMaker, waits for completion, and downloads the model.pkl from S3
+    - python scripts/run_sagemaker_job.py
+  artifacts:
+    paths:
+      - model/fraud_model.pkl
+
+build_image:
+  stage: build
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  script:
+    - apk add --no-cache aws-cli
+    - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
+    - IMAGE_TAG="${CI_COMMIT_SHORT_SHA}"
+    - docker build -t $ECR_REPO:$IMAGE_TAG .
+    - docker push $ECR_REPO:$IMAGE_TAG
+    - echo "$ECR_REPO:$IMAGE_TAG" > image_tag.txt
+  artifacts:
+    paths:
+      - image_tag.txt
+
+update_gitops_repo:
+  stage: update-manifests
+  image: alpine/git
+  script:
+    - IMAGE=$(cat image_tag.txt)
+    - git clone https://oauth2:${GITOPS_TOKEN}@gitlab.com/my-org/mlops-manifests.git
+    - cd mlops-manifests
+    # Update the Kustomize image tag
+    - 'sed -i "s|newName: .*|newName: ${IMAGE}|g" kustomization.yaml'
+    - git config user.email "ci-bot@gitlab.com"
+    - git config user.name "CI Bot"
+    - git add kustomization.yaml
+    - git commit -m "Auto-deploy model update ${CI_COMMIT_SHORT_SHA}"
+    - git push origin main
