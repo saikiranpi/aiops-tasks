@@ -11,6 +11,7 @@ Welcome to the **AIOPS Tasks** repository. This repository hosts a collection of
 | **03** | [03-mlops-sagemaker-argocd](./03-mlops-sagemaker-argocd) | Production-grade MLOps pipeline automating model training on AWS SageMaker and continuous GitOps deployment to Amazon EKS via ArgoCD. |
 | **04** | [04-ai-security-threat-detection](./04-ai-security-threat-detection) | AI-Driven Cloud Security Threat Detection analyzing GuardDuty findings via EventBridge, Lambda, and Bedrock to alert on Slack. |
 | **05** | [05-ai-finops-cost-optimizer](./05-ai-finops-cost-optimizer) | AI-Driven FinOps & Cost Optimizer analyzing daily AWS spend using Cost Explorer and Bedrock to send SNS reports. |
+| **06** | [06-keda-ai-autoscaling](./06-keda-ai-autoscaling) | Event-Driven Autoscaling with KEDA & AI, using AWS SQS queue depth via IAM Roles for Service Accounts (IRSA) to scale EKS workloads from zero to 50 dynamically. |
 
 ---
 

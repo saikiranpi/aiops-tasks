@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-worker
+spec:
+  replicas: 0 # CRITICAL: Start at zero!
+  selector:
+    matchLabels:
+      app: ai-worker
+  template:
+    metadata:
+      labels:
+        app: ai-worker
+    spec:
+      containers:
+      - name: worker
+        image: python:3.11-slim
+        # A dummy script that just sleeps, pretending to process queue items
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do echo 'Polling SQS...'; sleep 10; done"]

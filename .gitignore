@@ -9,6 +9,8 @@
 !/03-mlops-sagemaker-argocd/
 !/04-ai-security-threat-detection/
 !/05-ai-finops-cost-optimizer/
+!/06-keda-ai-autoscaling/
+
 
 # Inside whitelisted folders, ignore build and sensitive files
 **/.terraform/
