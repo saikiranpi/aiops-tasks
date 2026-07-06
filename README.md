@@ -13,8 +13,16 @@ Welcome to the **AIOPS Tasks** repository. This repository hosts a collection of
 | **05** | [05-ai-finops-cost-optimizer](./05-ai-finops-cost-optimizer) | AI-Driven FinOps & Cost Optimizer analyzing daily AWS spend using Cost Explorer and Bedrock to send SNS reports. |
 | **06** | [06-keda-ai-autoscaling](./06-keda-ai-autoscaling) | Event-Driven Autoscaling with KEDA & AI, using AWS SQS queue depth via IAM Roles for Service Accounts (IRSA) to scale EKS workloads from zero to 50 dynamically. |
 
+## Standalone Infrastructure
+
+This repository also contains standalone Terraform configuration files to spin up the core environment services:
+
+* [standalone-eks](./standalone-eks): Standalone Amazon EKS cluster setup with custom VPC and IAM OIDC provider.
+* [standalone-gitlab](./standalone-gitlab): Standalone GitLab CE server setup with automatic OOM prevention (swap configuration).
+
 ---
 
 ## Repository Structure
 
 Each project is contained in its own self-contained directory with source code, Terraform infrastructure code (where applicable), and a detailed setup/deployment guide.
+
